@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: gaming-service
+  datasource:
+    url: Mysql@127.0.0.1:3306
+    driver-class-name: org.h2.Driver
+    username: root
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console:
+      enabled: true
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+  redis:
+    host: localhost
+    port: 6379
+server:
+  servlet:
+    context-path: /gaming
+  tomcat:
+    max-threads: ${TOMCAT_THREAD:400}
+  port: 8080
+
