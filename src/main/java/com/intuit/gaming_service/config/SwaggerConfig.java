@@ -20,8 +20,7 @@ public class SwaggerConfig {
         new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.any())
             .paths(PathSelectors.any()).build();
 
-    if (swaggerBasePath != null && !""
-        .equals(swaggerBasePath)) {
+    if (!swaggerBasePath.isEmpty()) {
       docket.pathMapping(swaggerBasePath);
     }
     return docket;
