@@ -1,22 +1,37 @@
 package com.intuit.gaming_service.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="scores")
 public class Scores {
 
-  private String player_name;
+  @Id
+  @Column(name="player_id")
+  private Long playerId;
+
+  @Column(name="player_name")
+  private String playerName;
 
   private Long score;
 
-  public String getPlayer_name() {
-    return player_name;
+  public Long getPlayerId() {
+    return playerId;
   }
 
-  public void setPlayer_name(String player_name) {
-    this.player_name = player_name;
+  public void setPlayerId(Long playerId) {
+    this.playerId = playerId;
+  }
+
+  public String getPlayerName() {
+    return playerName;
+  }
+
+  public void setPlayerName(String playerName) {
+    this.playerName = playerName;
   }
 
   public Long getScore() {
@@ -28,14 +43,14 @@ public class Scores {
   }
 
   public Scores(String player_name, Long score) {
-    this.player_name = player_name;
+    this.playerName = player_name;
     this.score = score;
   }
 
   @Override
   public String toString() {
     return "Scores{" +
-        "player_name='" + player_name + '\'' +
+        "player_name='" + playerName + '\'' +
         ", score=" + score +
         '}';
   }

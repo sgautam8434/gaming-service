@@ -16,16 +16,15 @@ java {
 repositories {
 	mavenCentral()
 }
-
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.h2database:h2'
+	implementation 'org.springframework.kafka:spring-kafka'
+
+	runtimeOnly 'mysql:mysql-connector-java:8.0.25'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.springframework.security:spring-security-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
-	implementation 'io.springfox:springfox-boot-starter:3.0.0'
-	implementation 'org.apache.kafka:kafka-clients:3.8.0'
+	testImplementation 'junit:junit'
 }
 
 tasks.named('test') {
