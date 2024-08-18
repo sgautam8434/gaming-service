@@ -6,6 +6,7 @@ import com.intuit.gaming_service.dto.ResponseDto;
 import com.intuit.gaming_service.entity.Scores;
 import com.intuit.gaming_service.repository.ScoreRepository;
 import com.intuit.gaming_service.service.CacheService;
+import com.intuit.gaming_service.service.EntityService;
 import com.intuit.gaming_service.service.LeaderBoardService;
 import com.intuit.gaming_service.service.ScoreUpdateService;
 
@@ -20,13 +21,9 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
 
   @Value("${game.default.topN}")
   private Integer defaultLeaderBoardSize;
-  @PostConstruct
-  public void createBoard() {
-    initialiseGame(defaultLeaderBoardSize);
-  }
 
   @Autowired
-  private ScoreRepository scoreRepository;
+  private EntityService entityService;
 
   @Autowired
   private CacheService cacheService;
@@ -35,6 +32,11 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
   private ScoreUpdateService scoreUpdateService;
 
   boolean leaderBoardInitialized;
+
+  @PostConstruct
+  public void createBoard() {
+    initialiseGame(defaultLeaderBoardSize);
+  }
 
   @Override
   public ResponseDto getTopScorers() {
@@ -52,7 +54,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
   }
 
   private void initialiseGame(Integer topN){
-    List<Scores> allPlayerScores = scoreRepository.findAll();
+    List<Scores> allPlayerScores = entityService.findAllEntities();
     cacheService.initialiseCache(topN,allPlayerScores);
     scoreUpdateService.registerLeaderBoard(this);
     leaderBoardInitialized = true;

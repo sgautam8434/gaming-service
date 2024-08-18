@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,7 +27,7 @@ public class LeaderBoardController {
     return new ResponseEntity<>(leaderBoardService.getTopScorers(), HttpStatus.OK);
   }
 
-  @GetMapping(path = {"/createGame"})
+  @PostMapping(path = {"/createGame"})
   public ResponseEntity<ResponseDto> createGame(@RequestBody CreateGameRequestDto request) {
     return new ResponseEntity<>(
         leaderBoardService.createGame(leaderBoardMapper.gameDtoToBo(request)), HttpStatus.OK);

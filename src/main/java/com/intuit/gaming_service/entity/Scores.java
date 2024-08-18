@@ -42,6 +42,9 @@ public class Scores {
     this.score = score;
   }
 
+  public Scores() {
+  }
+
   public Scores(String player_name, Long score) {
     this.playerName = player_name;
     this.score = score;

@@ -15,6 +15,6 @@ public interface LeaderBoardMapper {
   CreateGameBo gameDtoToBo(CreateGameRequestDto dto);
 
   default Long createGameId() {
-    return BasicUtils.createRandomUUID();
+    return BasicUtils.createRandomID();
   }
 }
