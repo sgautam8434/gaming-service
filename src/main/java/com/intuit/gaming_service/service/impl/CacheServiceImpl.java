@@ -26,11 +26,11 @@ public class CacheServiceImpl implements CacheService {
     minHeap = new PriorityQueue<>();
     playerScore = new HashMap<>();
     for (Scores score : allPlayerScores) {
-      updateCache(score);
+      updateMinHeap(score);
     }
   }
 
-  private void updateCache(Scores score) {
+  private void updateMinHeap(Scores score) {
     if (minHeap.size() < topN) {
       minHeap.add(score);
       playerScore.put(score.getPlayerId(), score);
@@ -42,6 +42,19 @@ public class CacheServiceImpl implements CacheService {
         playerScore.put(score.getPlayerId(), score);
       }
     }
+  }
+
+  public void addToCache(Scores newScore) {
+    if (playerScore.containsKey(newScore.getPlayerId())) {
+      Scores scoreToBeUpdated = playerScore.get(newScore.getPlayerId());
+      if (scoreToBeUpdated.getScore() < newScore.getScore()) {
+        minHeap.remove(scoreToBeUpdated);
+        playerScore.put(newScore.getPlayerId(), scoreToBeUpdated);
+        minHeap.add(newScore);
+      }
+      return;
+    }
+    updateMinHeap(newScore);
   }
 
   @Override

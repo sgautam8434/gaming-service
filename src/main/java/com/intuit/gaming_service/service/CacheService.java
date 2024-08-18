@@ -9,4 +9,6 @@ public interface CacheService {
   List<Scores> getTopNPlayers();
 
   void initialiseCache(Integer topN, List<Scores> allPlayerScores);
+
+  void addToCache(Scores newScore);
 }

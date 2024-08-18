@@ -4,6 +4,6 @@ public class KafkaConstants {
 
   public static final String KAFKA_TOPIC = "score_topic";
 
-  public static final String KAFKA_GROUP_ID = "scoreGroupId";
+  public static final String KAFKA_GROUP_ID = "GroupId";
 
 }
