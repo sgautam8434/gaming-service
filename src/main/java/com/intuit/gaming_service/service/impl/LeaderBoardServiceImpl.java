@@ -4,11 +4,10 @@ import jakarta.annotation.PostConstruct;
 import com.intuit.gaming_service.bo.CreateGameBo;
 import com.intuit.gaming_service.dto.ResponseDto;
 import com.intuit.gaming_service.entity.Scores;
-import com.intuit.gaming_service.repository.ScoreRepository;
 import com.intuit.gaming_service.service.CacheService;
 import com.intuit.gaming_service.service.EntityService;
 import com.intuit.gaming_service.service.LeaderBoardService;
-import com.intuit.gaming_service.service.ScoreUpdateService;
+import com.intuit.gaming_service.service.ScoreService;
 
 import java.util.List;
 
@@ -29,7 +28,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
   private CacheService cacheService;
 
   @Autowired
-  private ScoreUpdateService scoreUpdateService;
+  private ScoreService scoreService;
 
   boolean leaderBoardInitialized;
 
@@ -56,7 +55,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
   private void initialiseGame(Integer topN){
     List<Scores> allPlayerScores = entityService.findAllEntities();
     cacheService.initialiseCache(topN,allPlayerScores);
-    scoreUpdateService.registerLeaderBoard(this);
+    scoreService.registerLeaderBoard(this);
     leaderBoardInitialized = true;
   }
 }

@@ -4,9 +4,6 @@ import com.intuit.gaming_service.entity.Scores;
 
 public interface ScoreUpdateService {
 
-  void registerLeaderBoard(LeaderBoardService leaderBoard);
+  void addScore(Scores newScore);
 
-  void publishToLeaderBoards(Scores newScore);
-
-  void addNewScore(Scores newScore);
 }

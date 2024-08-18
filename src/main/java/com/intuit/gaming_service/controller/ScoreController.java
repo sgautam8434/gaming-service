@@ -1,7 +1,7 @@
 package com.intuit.gaming_service.controller;
 
 import com.intuit.gaming_service.entity.Scores;
-import com.intuit.gaming_service.service.ScoreUpdateService;
+import com.intuit.gaming_service.service.ScoreService;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,14 +16,14 @@ import org.springframework.web.server.ResponseStatusException;
 public class ScoreController {
 
   @Autowired
-  ScoreUpdateService scoreUpdateService;
+  ScoreService scoreService;
 
   Logger LOGGER = LoggerFactory.getLogger(ScoreController.class);
 
   @PostMapping("/updateScore")
   public void updateScore(@RequestBody Scores newScore) {
     try {
-      scoreUpdateService.addNewScore(newScore);
+      scoreService.addNewScore(newScore);
     } catch (Exception e) {
       LOGGER.error("Leaderboard Update failed - " + e.getMessage());
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
