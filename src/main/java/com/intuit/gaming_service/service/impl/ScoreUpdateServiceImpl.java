@@ -56,7 +56,7 @@ public class ScoreUpdateServiceImpl implements ScoreUpdateService, ScoreUpdateTo
   }
 
   @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-  public void consumeFromKafka(Scores newScore) {
+  public void addNewScore(Scores newScore) {
     saveToDb(newScore);
     publishToLeaderBoards(newScore);
   }

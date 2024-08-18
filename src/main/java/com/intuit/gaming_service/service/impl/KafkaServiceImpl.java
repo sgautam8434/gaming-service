@@ -16,7 +16,7 @@ public class KafkaServiceImpl implements KafkaService {
   @Override
   @KafkaListener(topics = KafkaConstants.KAFKA_TOPIC, groupId = KafkaConstants.KAFKA_GROUP_ID)
   public void consumeDataFromQueue(Scores newScore){
-    scoreUpdateService.consumeFromKafka(newScore);
+    scoreUpdateService.addNewScore(newScore);
   }
 
 }

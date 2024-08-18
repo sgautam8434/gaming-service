@@ -23,7 +23,7 @@ public class ScoreController {
   @PostMapping("/updateScore")
   public void updateScore(@RequestBody Scores newScore) {
     try {
-      scoreUpdateService.consumeFromKafka(newScore);
+      scoreUpdateService.addNewScore(newScore);
     } catch (Exception e) {
       LOGGER.error("Leaderboard Update failed - " + e.getMessage());
       throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());

@@ -8,5 +8,5 @@ public interface ScoreUpdateService {
 
   void publishToLeaderBoards(Scores newScore);
 
-  void consumeFromKafka(Scores newScore);
+  void addNewScore(Scores newScore);
 }
