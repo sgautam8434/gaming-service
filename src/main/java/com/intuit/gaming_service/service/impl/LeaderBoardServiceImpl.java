@@ -31,7 +31,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
   @Autowired
   private ScoreService scoreService;
 
-  boolean leaderBoardInitialized;
+  public boolean leaderBoardInitialized;
 
   @PostConstruct
   public void createBoard() {
