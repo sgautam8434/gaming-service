@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="scores")
-public class Scores {
+public class Scores implements Comparable<Scores>{
 
   @Id
   @Column(name="player_id")
@@ -50,11 +50,22 @@ public class Scores {
     this.score = score;
   }
 
+  public Scores(String playerId, String playerName, Long score) {
+    this.playerId = playerId;
+    this.playerName = playerName;
+    this.score = score;
+  }
+
   @Override
   public String toString() {
     return "Scores{" +
         "player_name='" + playerName + '\'' +
         ", score=" + score +
         '}';
+  }
+
+  @Override
+  public int compareTo(Scores newScore) {
+    return Long.compare(this.score, newScore.score);
   }
 }

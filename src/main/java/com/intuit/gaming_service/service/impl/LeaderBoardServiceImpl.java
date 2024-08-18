@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import com.intuit.gaming_service.bo.CreateGameBo;
 import com.intuit.gaming_service.dto.ResponseDto;
 import com.intuit.gaming_service.entity.Scores;
+import com.intuit.gaming_service.repository.ScoreRepository;
 import com.intuit.gaming_service.service.CacheService;
 import com.intuit.gaming_service.service.EntityService;
 import com.intuit.gaming_service.service.LeaderBoardService;
@@ -48,7 +49,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
 
   @Override
   public ResponseDto createGame(CreateGameBo requestBo){
-    initialiseGame(requestBo.getTopN());
+    initialiseGame(requestBo.getTopNScorers());
     return new ResponseDto(null,"game created",true);
   }
 

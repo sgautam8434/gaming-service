@@ -36,6 +36,6 @@ public class ScoreServiceImpl implements ScoreService {
   @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
   public void addNewScore(Scores newScore) {
     scoreUpdateServiceDb.addScore(newScore);
-    publishToLeaderBoards(newScore);
+    scoreUpdateToCacheService.addScore(newScore);
   }
 }

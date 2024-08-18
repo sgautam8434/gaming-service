@@ -18,7 +18,6 @@ public class EntityServiceImpl implements EntityService {
   ScoreRepository scoreRepository;
 
   @Override
-  @Transactional
   public List<Scores> findAllEntities() {
     return scoreRepository.findAll();
   }

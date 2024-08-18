@@ -2,21 +2,23 @@ package com.intuit.gaming_service.service.impl;
 
 import com.intuit.gaming_service.constants.KafkaConstants;
 import com.intuit.gaming_service.entity.Scores;
-import com.intuit.gaming_service.service.KafkaService;
+import com.intuit.gaming_service.service.ConsumerService;
 import com.intuit.gaming_service.service.ScoreService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
 
-public class KafkaServiceImpl implements KafkaService {
+@Service
+public class ConsumerServiceImpl implements ConsumerService {
 
   @Autowired
   private ScoreService scoreService;
 
   @Override
-  @KafkaListener(topics = KafkaConstants.KAFKA_TOPIC, groupId = KafkaConstants.KAFKA_GROUP_ID)
-  public void consumeDataFromQueue(Scores newScore){
+  @KafkaListener(topics = KafkaConstants.KAFKA_TOPIC, groupId = KafkaConstants.KAFKA_GROUP_ID, properties = {
+      "spring.json.value.default.type=com.intuit.gaming_service.entity.Scores"})
+  public void consumeDataFromQueue(Scores newScore) {
     scoreService.addNewScore(newScore);
   }
-
 }

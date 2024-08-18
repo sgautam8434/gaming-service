@@ -4,7 +4,7 @@ public class CreateGameBo {
 
   public Long gameId;
 
-  public Integer topN;
+  public Integer topNScorers;
 
   public Long getGameId() {
     return gameId;
@@ -14,11 +14,11 @@ public class CreateGameBo {
     this.gameId = gameId;
   }
 
-  public Integer getTopN() {
-    return topN;
+  public Integer getTopNScorers() {
+    return topNScorers;
   }
 
-  public void setTopN(Integer topN) {
-    this.topN = topN;
+  public void setTopNScorers(Integer topNScorers) {
+    this.topNScorers = topNScorers;
   }
 }
