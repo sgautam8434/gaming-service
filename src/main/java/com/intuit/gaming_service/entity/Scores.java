@@ -11,18 +11,18 @@ public class Scores {
 
   @Id
   @Column(name="player_id")
-  private Long playerId;
+  private String playerId;
 
   @Column(name="player_name")
   private String playerName;
 
   private Long score;
 
-  public Long getPlayerId() {
+  public String getPlayerId() {
     return playerId;
   }
 
-  public void setPlayerId(Long playerId) {
+  public void setPlayerId(String playerId) {
     this.playerId = playerId;
   }
 
