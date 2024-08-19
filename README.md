@@ -19,7 +19,7 @@ This project is part of a gaming service responsible for tracking all-time top s
 ### Prerequisites
 
 - Java 17 or higher
-- Springboot 3.0.0 or higher
+- SpringBoot 3.0.0 or higher
 - Apache Kafka
 - Any supported database (e.g., MySQL, PostgreSQL)
 
@@ -63,12 +63,3 @@ This project is part of a gaming service responsible for tracking all-time top s
           ```bash
           bin/kafka-console-consumer.sh --topic game-scores --from-beginning --bootstrap-server localhost:9092
           ```
-
-## Testing
-
-- Make sure to run the test cases provided in the project to verify the functionality.
-- The project includes key unit tests to ensure the correctness of the leaderboard service.
-
-## Conclusion
-
-This gaming service module is designed to be scalable, maintainable, and extendable. By following the steps above, you can set up the service locally and test its core functionality.
