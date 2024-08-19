@@ -59,7 +59,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
     return new ResponseDto(null,"game created",true);
   }
 
-  private void initialiseGame(Integer topN) throws DbFetchException {
+  public void initialiseGame(Integer topN) throws DbFetchException {
     try {
       List<Scores> allPlayerScores = entityService.findAllEntities();
       cacheService.initialiseCache(topN, allPlayerScores);

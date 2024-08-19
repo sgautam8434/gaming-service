@@ -1,9 +1,12 @@
 package com.intuit.gaming_service;
 
 import com.intuit.gaming_service.Mock.DataMock;
+import com.intuit.gaming_service.bo.CreateGameBo;
 import com.intuit.gaming_service.dto.ResponseDto;
 import com.intuit.gaming_service.entity.Scores;
+import com.intuit.gaming_service.exception.DbFetchException;
 import com.intuit.gaming_service.service.CacheService;
+import com.intuit.gaming_service.service.ScoreService;
 import com.intuit.gaming_service.service.impl.LeaderBoardServiceImpl;
 
 import java.util.List;
@@ -24,6 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -38,6 +44,12 @@ public class LeaderBoardServiceImplTest {
 
   @InjectMocks
   private LeaderBoardServiceImpl leaderBoardService;
+
+  @Mock
+  private LeaderBoardServiceImpl leaderBoardServiceMock;
+
+  @Mock
+  private ScoreService scoreService;
 
   @BeforeEach
   void setUp() {
@@ -69,5 +81,18 @@ public class LeaderBoardServiceImplTest {
     });
     assertEquals("Cache not initialised", thrown.getMessage());
     verify(cacheService, never()).getTopNScorers();
+  }
+
+  @Test
+  public void testCreateGameThrowsDbFetchException() throws DbFetchException {
+    CreateGameBo requestBo = new CreateGameBo();
+    requestBo.setTopNScorers(10);
+    doThrow(new DbFetchException("Exception while fetching data from the db")).when(
+            leaderBoardServiceMock).initialiseGame(anyInt());
+
+    DbFetchException exception = assertThrows(DbFetchException.class, () -> {
+      leaderBoardService.createGame(requestBo);
+    });
+    assertEquals("Exception while fetching data from the db", exception.getMessage());
   }
 }
