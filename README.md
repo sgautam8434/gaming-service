@@ -2,17 +2,28 @@
 
 ## Overview
 
-This project is part of a gaming service responsible for tracking all-time top scores. As players complete a game, the game service publishes the player's score to a Kafka topic (or a flat file). This service processes these scores and maintains a leaderboard, returning the top 5 scores and the corresponding player names upon request.
+This project is part of a gaming service responsible for tracking all-time top scores. As players
+complete a game, the game service publishes the player's score to a Kafka topic (or a flat file).
+This service processes these scores and maintains a leaderboard, returning the top 5 scores and the
+corresponding player names upon request.
 
 ## Assumptions
 
-- **Player and Score Validation**: The gaming service guarantees that all published scores belong to either registered or valid guest users. No further verification of player identity or score integrity is necessary.
-- **Player Ranking**: In case of identical scores, player positions on the leaderboard are determined by reverse lexicographical order of their unique usernames.
-- **Data Consistency**: Player data is updated sequentially, preventing concurrent modifications from the same player.
-- **Score Structure**: Scores are represented as simple numerical values. The leaderboard displays the top N scores along with their corresponding usernames, where N is a configurable parameter.
-- **Internal API Usage**: All APIs are exclusively used within the gaming service ecosystem, rendering authentication and data validation superfluous.
-- **Leaderboard Structure**: Currently, a single leaderboard is maintained. The system is designed to accommodate multiple leaderboards in future expansions.
-- **Scalability**: The current system efficiently handles the present workload on a single server. Additional servers can be integrated to accommodate increased traffic.
+- **Player and Score Validation**: The gaming service guarantees that all published scores belong to
+  either registered or valid guest users. No further verification of player identity or score
+  integrity is necessary.
+- **Player Ranking**: In case of identical scores, player positions on the leaderboard are
+  determined by reverse lexicographical order of their unique usernames.
+- **Data Consistency**: Player data is updated sequentially, preventing concurrent modifications
+  from the same player.
+- **Score Structure**: Scores are represented as simple numerical values. The leaderboard displays
+  the top N scores along with their corresponding usernames, where N is a configurable parameter.
+- **Internal API Usage**: All APIs are exclusively used within the gaming service ecosystem,
+  rendering authentication and data validation superfluous.
+- **Leaderboard Structure**: Currently, a single leaderboard is maintained. The system is designed
+  to accommodate multiple leaderboards in future expansions.
+- **Scalability**: The current system efficiently handles the present workload on a single server.
+  Additional servers can be integrated to accommodate increased traffic.
 
 ## Installation
 
@@ -30,7 +41,8 @@ This project is part of a gaming service responsible for tracking all-time top s
     - Extract the downloaded Kafka files to a preferred directory.
 
 2. **Start Zookeeper:**
-    - Kafka requires Zookeeper to manage its cluster. Navigate to the Kafka directory and run the following command to start Zookeeper:
+    - Kafka requires Zookeeper to manage its cluster. Navigate to the Kafka directory and run the
+      following command to start Zookeeper:
       ```bash
       bin/zookeeper-server-start.sh config/zookeeper.properties
       ```
