@@ -1,7 +1,10 @@
 package com.intuit.gaming_service.exception;
 
+import jakarta.persistence.EntityNotFoundException;
 import com.intuit.gaming_service.dto.ResponseDto;
 
+import org.hibernate.cache.CacheException;
+import org.springframework.data.repository.core.RepositoryCreationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -19,6 +22,18 @@ public class RestExceptionHandler {
 
   @ExceptionHandler(NullPointerException.class)
   public ResponseEntity<ResponseDto> handleNullPointerException(String message) {
+    ResponseDto responseDto = new ResponseDto(null, message, false);
+    return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(CacheException.class)
+  public ResponseEntity<ResponseDto> CacheException(String message) {
+    ResponseDto responseDto = new ResponseDto(null, message, false);
+    return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @ExceptionHandler(EntityNotFoundException.class)
+  public ResponseEntity<ResponseDto> RepositoryCreationException(String message) {
     ResponseDto responseDto = new ResponseDto(null, message, false);
     return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
   }

@@ -5,6 +5,7 @@ import com.intuit.gaming_service.entity.Scores;
 import com.intuit.gaming_service.service.ProducerService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.KafkaException;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,10 @@ public class ProducerServiceImpl implements ProducerService {
 
   @Override
   public void createNewScore(Scores newScore){
-    kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, newScore);
+    try {
+      kafkaTemplate.send(KafkaConstants.KAFKA_TOPIC, newScore);
+    } catch (Exception ex) {
+      throw new KafkaException("Error producing data");
+    }
   }
 }

@@ -1,12 +1,11 @@
 package com.intuit.gaming_service.service;
 
 import com.intuit.gaming_service.entity.Scores;
+import com.intuit.gaming_service.exception.DbUpdateException;
 
 public interface ScoreService {
 
   void registerLeaderBoard(LeaderBoardService leaderBoard);
 
-  void publishToLeaderBoards(Scores newScore);
-
-  void addNewScore(Scores newScore);
+  void addNewScore(Scores newScore) throws DbUpdateException;
 }

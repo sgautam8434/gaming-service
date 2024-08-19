@@ -45,11 +45,6 @@ public class Scores implements Comparable<Scores>{
   public Scores() {
   }
 
-  public Scores(String player_name, Long score) {
-    this.playerName = player_name;
-    this.score = score;
-  }
-
   public Scores(String playerId, String playerName, Long score) {
     this.playerId = playerId;
     this.playerName = playerName;

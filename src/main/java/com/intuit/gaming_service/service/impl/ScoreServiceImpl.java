@@ -1,6 +1,7 @@
 package com.intuit.gaming_service.service.impl;
 
 import com.intuit.gaming_service.entity.Scores;
+import com.intuit.gaming_service.exception.DbUpdateException;
 import com.intuit.gaming_service.service.LeaderBoardService;
 import com.intuit.gaming_service.service.ScoreService;
 
@@ -29,12 +30,8 @@ public class ScoreServiceImpl implements ScoreService {
     leaderBoards.add(leaderBoard);
   }
 
-  public void publishToLeaderBoards(Scores newScore)  {
-    scoreUpdateToCacheService.addScore(newScore);
-  }
-
   @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
-  public void addNewScore(Scores newScore) {
+  public void addNewScore(Scores newScore) throws DbUpdateException {
     scoreUpdateServiceDb.addScore(newScore);
     scoreUpdateToCacheService.addScore(newScore);
   }

@@ -1,6 +1,7 @@
 package com.intuit.gaming_service.service.impl;
 
 import com.intuit.gaming_service.entity.Scores;
+import com.intuit.gaming_service.exception.DbUpdateException;
 import com.intuit.gaming_service.repository.ScoreRepository;
 import com.intuit.gaming_service.service.ScoreUpdateService;
 
@@ -16,13 +17,16 @@ public class ScoreUpdateToDbServiceImpl implements ScoreUpdateService {
   ScoreRepository scoreRepository;
 
   @Override
-  public void addScore(Scores newScore){
-    Optional<Scores> scoreAlreadyPresent = scoreRepository.findById(newScore.getPlayerId());
-    if (scoreAlreadyPresent.isPresent()
-        && scoreAlreadyPresent.get().getScore() >= newScore.getScore()) {
-      return;
+  public void addScore(Scores newScore) throws DbUpdateException {
+    try {
+      Optional<Scores> scoreAlreadyPresent = scoreRepository.findById(newScore.getPlayerId());
+      if (scoreAlreadyPresent.isPresent()
+          && scoreAlreadyPresent.get().getScore() >= newScore.getScore()) {
+        return;
+      }
+      scoreRepository.save(newScore);
+    }catch (Exception ex){
+      throw new DbUpdateException("Error in updating database");
     }
-    scoreRepository.save(newScore);
   }
-
 }

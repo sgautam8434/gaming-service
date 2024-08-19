@@ -25,7 +25,7 @@ public class CacheServiceImplTest {
   private CacheServiceImpl cacheService;
 
   @Test
-  public void validateCache(){
+  public void getTopNPlayersTest(){
     List<Scores> allScores = CacheServiceMock.getAllScores();
     List<Scores> getCacheValue = CacheServiceMock.getCacheData();
     cacheService.initialiseCache(5,allScores);
