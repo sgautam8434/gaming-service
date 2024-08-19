@@ -5,7 +5,6 @@ import com.intuit.gaming_service.bo.CreateGameBo;
 import com.intuit.gaming_service.dto.ResponseDto;
 import com.intuit.gaming_service.entity.Scores;
 import com.intuit.gaming_service.exception.DbFetchException;
-import com.intuit.gaming_service.repository.ScoreRepository;
 import com.intuit.gaming_service.service.CacheService;
 import com.intuit.gaming_service.service.EntityService;
 import com.intuit.gaming_service.service.LeaderBoardService;
@@ -47,7 +46,7 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
   @Override
   public ResponseDto getTopScorers() {
     if (leaderBoardInitialized) {
-      return new ResponseDto(cacheService.getTopNPlayers(), "top N players", true);
+      return new ResponseDto(cacheService.getTopNScorers(), "top N players", true);
     } else {
       LOGGER.error("Cache not initialised");
       throw new CacheException("Cache not initialised");

@@ -3,6 +3,7 @@ package com.intuit.gaming_service.controller;
 import com.intuit.gaming_service.converters.LeaderBoardMapper;
 import com.intuit.gaming_service.dto.CreateGameRequestDto;
 import com.intuit.gaming_service.dto.ResponseDto;
+import com.intuit.gaming_service.exception.DbFetchException;
 import com.intuit.gaming_service.service.LeaderBoardService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,8 @@ public class LeaderBoardController {
   }
 
   @PostMapping(path = {"/createGame"})
-  public ResponseEntity<ResponseDto> createGame(@RequestBody CreateGameRequestDto request) {
+  public ResponseEntity<ResponseDto> createGame(@RequestBody CreateGameRequestDto request)
+      throws DbFetchException {
     return new ResponseEntity<>(
         leaderBoardService.createGame(leaderBoardMapper.gameDtoToBo(request)), HttpStatus.OK);
   }

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CacheService {
 
-  List<Scores> getTopNPlayers();
+  List<Scores> getTopNScorers();
 
   void initialiseCache(Integer topN, List<Scores> allPlayerScores);
 

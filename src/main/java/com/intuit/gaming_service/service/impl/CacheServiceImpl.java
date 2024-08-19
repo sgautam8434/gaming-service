@@ -25,11 +25,11 @@ public class CacheServiceImpl implements CacheService {
   @Autowired
   ScoreRepository scoreRepository;
 
-  PriorityQueue<Scores> minHeap;
+  public PriorityQueue<Scores> minHeap;
 
   int topN;
 
-  Map<String, Scores> playerScore;
+  public Map<String, Scores> playerScore;
   @Override
   public void initialiseCache(Integer topN, List<Scores> allPlayerScores) {
     if (topN <= 0) {
@@ -68,7 +68,7 @@ public class CacheServiceImpl implements CacheService {
         Scores scoreToBeUpdated = playerScore.get(newScore.getPlayerId());
         if (scoreToBeUpdated.getScore() < newScore.getScore()) {
           minHeap.remove(scoreToBeUpdated);
-          playerScore.put(newScore.getPlayerId(), scoreToBeUpdated);
+          playerScore.put(newScore.getPlayerId(), newScore);
           minHeap.add(newScore);
         }
         return;
@@ -77,7 +77,7 @@ public class CacheServiceImpl implements CacheService {
   }
 
   @Override
-  public List<Scores> getTopNPlayers() {
+  public List<Scores> getTopNScorers() {
     try {
       List<Scores> res = new ArrayList<>(minHeap);
       res.sort(Collections.reverseOrder());

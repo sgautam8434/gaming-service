@@ -3,9 +3,11 @@ package com.intuit.gaming_service.Mock;
 import com.intuit.gaming_service.entity.Scores;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class CacheServiceMock {
+public class DataMock {
 
   static Scores p1 = new Scores("100","P1", 100L);
   static Scores p2 = new Scores("101","P2", 200L);
@@ -35,5 +37,20 @@ public class CacheServiceMock {
     cacheData.add(p3);
     cacheData.add(p2);
     return cacheData;
+  }
+
+  public static Scores getScore(){
+    return p1;
+  }
+
+  public static Map<String,Scores> getPlayerMap(){
+    Map<String, Scores> playerScoreMap = new HashMap<>();
+    playerScoreMap.put(p1.getPlayerId(),p1);
+    playerScoreMap.put(p2.getPlayerId(),p2);
+    playerScoreMap.put(p3.getPlayerId(),p3);
+    playerScoreMap.put(p4.getPlayerId(),p4);
+    playerScoreMap.put(p5.getPlayerId(),p5);
+    playerScoreMap.put(p6.getPlayerId(),p6);
+    return playerScoreMap;
   }
 }
