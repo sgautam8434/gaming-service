@@ -1,33 +1,41 @@
 package com.intuit.gaming_service.service.impl;
 
 import com.intuit.gaming_service.entity.Scores;
-import com.intuit.gaming_service.repository.ScoreRepository;
 import com.intuit.gaming_service.service.CacheService;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.stream.Collectors;
 
-import org.apache.juli.logging.Log;
 import org.hibernate.cache.CacheException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CacheServiceImpl implements CacheService {
 
-  @Autowired
-  ScoreRepository scoreRepository;
+  private static CacheServiceImpl cache = null;
 
   public PriorityQueue<Scores> minHeap;
+  private int topN;
 
-  int topN;
+  private Map<String, Scores> playerScores;
+
+  private CacheServiceImpl() {
+  }
+
+  public static CacheServiceImpl getInstance() {
+    if (cache == null) {
+      synchronized (CacheServiceImpl.class) {
+        if (cache == null) {
+          cache = new CacheServiceImpl();
+        }
+      }
+    }
+    return cache;
+  }
 
   public Map<String, Scores> playerScore;
   @Override

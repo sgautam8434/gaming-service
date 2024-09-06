@@ -5,7 +5,7 @@ import com.intuit.gaming_service.exception.DbUpdateException;
 
 public interface ScoreService {
 
-  void registerLeaderBoard(LeaderBoardService leaderBoard);
+  void registerLeaderBoard(LeaderBoardObserver leaderBoard);
 
   void addNewScore(Scores newScore) throws DbUpdateException;
 }

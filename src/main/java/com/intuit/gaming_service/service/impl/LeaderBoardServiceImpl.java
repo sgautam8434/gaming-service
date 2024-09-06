@@ -7,6 +7,7 @@ import com.intuit.gaming_service.entity.Scores;
 import com.intuit.gaming_service.exception.DbFetchException;
 import com.intuit.gaming_service.service.CacheService;
 import com.intuit.gaming_service.service.EntityService;
+import com.intuit.gaming_service.service.LeaderBoardObserver;
 import com.intuit.gaming_service.service.LeaderBoardService;
 import com.intuit.gaming_service.service.ScoreService;
 
@@ -20,7 +21,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LeaderBoardServiceImpl implements LeaderBoardService {
+public class LeaderBoardServiceImpl implements LeaderBoardService, LeaderBoardObserver {
 
   @Value("${game.default.topN}")
   private Integer defaultLeaderBoardSize;
@@ -68,5 +69,10 @@ public class LeaderBoardServiceImpl implements LeaderBoardService {
     } catch (Exception e) {
       throw new DbFetchException("Exception while fetching data from the db");
     }
+  }
+
+  @Override
+  public void updateScores(Scores newScore) {
+    cacheService.addToCache(newScore);
   }
 }

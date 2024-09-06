@@ -2,13 +2,12 @@ package com.intuit.gaming_service.service.impl;
 
 import com.intuit.gaming_service.entity.Scores;
 import com.intuit.gaming_service.exception.DbUpdateException;
-import com.intuit.gaming_service.service.LeaderBoardService;
+import com.intuit.gaming_service.service.LeaderBoardObserver;
 import com.intuit.gaming_service.service.ScoreService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,17 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class ScoreServiceImpl implements ScoreService {
 
-  List<LeaderBoardService> leaderBoards = new ArrayList<LeaderBoardService>();
-
-
-  @Autowired
+  List<LeaderBoardObserver> leaderBoards = new ArrayList<>();
   ScoreUpdateToDbServiceImpl scoreUpdateServiceDb;
 
-  @Autowired
   ScoreUpdateToCacheServiceImpl scoreUpdateToCacheService;
 
   @Override
-  public void registerLeaderBoard(LeaderBoardService leaderBoard) {
+  public void registerLeaderBoard(LeaderBoardObserver leaderBoard) {
     leaderBoards.add(leaderBoard);
   }
 
@@ -34,5 +29,8 @@ public class ScoreServiceImpl implements ScoreService {
   public void addNewScore(Scores newScore) throws DbUpdateException {
     scoreUpdateServiceDb.addScore(newScore);
     scoreUpdateToCacheService.addScore(newScore);
+    for (LeaderBoardObserver leaderBoard : leaderBoards) {
+      leaderBoard.updateScores(newScore);
+    }
   }
 }
